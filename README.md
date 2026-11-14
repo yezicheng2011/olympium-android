@@ -12,14 +12,9 @@ The official site is https://olympium.net. Do not commit `*.img`, `*.tar.gz`, ce
 ./build-slim.sh
 ```
 
+The script packs `system.img` and `userdata.img` from `AOSP_PRODUCT_OUT` only when that directory is a local AOSP build. It refuses Google Play, GApps, HarmonyOS, and Apple images. It does not download a Google SDK system image or a Generic System Image, because those downloads are published under licenses that restrict redistribution. It does not write a placeholder archive.
 
-1. Build a user AOSP image for the emulator with no Play services and no extra packages.
-2. Pack `system.img`, `userdata.img`, and `bin/linkspan-runtime` into the asset named below.
-3. `linkspan-runtime` must start the emulator with no device-manager window and pass `--display host-window` through to a host window bridge.
-4. Do not put the image in the Linkspan application repository.
-
-
-After a build, fill `sha256` in `runtime-lock.json`, set `"published": true` in this file and in Linkspan's `share/runtime-lock.json`, tag `v0.1.0`, and attach the `.tar.gz` assets to the GitHub Release. Until that release exists, Linkspan reports that the image is not published.
+No AOSP image was built for 0.1.0. A from-source `aosp_x86_64` user image needs a full AOSP tree and more CPU and memory than the host used here (4 vCPU, 16 GiB RAM). `published` stays false and `sha256` stays empty.
 
 ## Assets
 
