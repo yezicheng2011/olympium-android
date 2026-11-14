@@ -34,9 +34,11 @@ Image. Those files are published under licenses that restrict redistribution.
 It will not write a placeholder archive.
 
 A from-source AOSP user image (no Play services) was not built in this
-environment. Building aosp_x86_64 needs a full AOSP tree and more CPU and
-memory than this host has (4 vCPU, 16 GiB RAM). Until that build exists,
-olympium-android stays unpublished.
+environment. Google's published workstation guidance for a current AOSP tree
+is about 400 GB free disk and 64 GB of RAM. Core count changes how long the
+build takes. It is not, by itself, a reason a lower -j cannot compile.
+This environment is below those published disk and RAM figures, so no tree
+was synced and no image was packed. SDK emulator images are not downloaded.
 EOF
   exit 2
 fi
