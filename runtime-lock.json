@@ -1,0 +1,14 @@
+{
+  "id": "android",
+  "edition": "slim",
+  "version": "0.1.0",
+  "published": false,
+  "repo": "https://github.com/yezicheng2011/olympium-android",
+  "tag": "v0.1.0",
+  "summary": "A minimal AOSP system image for the emulator or QEMU. No Google Play and no extra apps.",
+  "assets": {
+    "x86_64": "android-slim-x86_64.tar.gz",
+    "aarch64": "android-slim-aarch64.tar.gz"
+  },
+  "sha256": {}
+}
