@@ -1,0 +1,18 @@
+# Machine-local SDK path
+local.properties
+
+# Build outputs
+.gradle/
+build/
+dist/
+*.apk
+*.aab
+*.idsig
+
+# Signing material — never commit private keys
+*.jks
+*.keystore
+*.pem
+*.p12
+*.key
+keystore.properties

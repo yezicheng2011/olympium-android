@@ -1,0 +1,54 @@
+====================================================================
+Olympium for Android — 编译与打包命令指南 (BUILD.txt)
+====================================================================
+
+技术栈：Kotlin + Android Material 3 + Gradle 8.5+
+支持架构：单包全 ABI 通用（arm64-v8a + armeabi-v7a + x86_64 + x86）
+原生体验：
+  - 统一最新金色东方龙图标 (app/src/main/res/drawable/ic_olympium_dragon.png)
+  - 与 Android 原生文件管理器/浏览器无缝集成：点击安装包即弹出 Olympium 处理：
+      * .apk：直接调用 Android 原生 PackageInstaller 安装，完全与原生一致
+      * .exe / .msi：自动导入 Wine + Box64/Box86 proot 容器运行（无需手工开启）
+      * .deb / .rpm / 跨架构 ELF：proot + qemu-user-static 跨架构支持 x86/x86_64/arm32/arm64
+      * .hap：精简 OpenHarmony HAP 解析与桥接（不含完整镜像）
+      * .dmg / .pkg / Mach-O：Darling 容器桥接
+
+--------------------------------------------------------------------
+1. 前置环境
+--------------------------------------------------------------------
+- JDK 17 (Temurin / OpenJDK 17)
+- Android SDK Platform 34 & Build-Tools 34.0.0（设置环境变量 ANDROID_HOME）
+- Gradle 8.7+ 或 Android Studio
+
+export ANDROID_HOME="$HOME/Android/Sdk"
+export PATH="$ANDROID_HOME/platform-tools:$PATH"
+
+--------------------------------------------------------------------
+2. 打包全架构通用 APK 与 AAB
+--------------------------------------------------------------------
+# 在仓库根目录执行（源码已展开在根目录，无需再进入 android/）
+chmod +x package-android.sh
+
+# 方式 A：使用打包脚本（同时生成通用 APK 与 AAB 到 dist/）
+./package-android.sh
+
+# 方式 B：直接使用 Gradle 命令
+gradle assembleDebug        # 调试版通用 APK（可直接安装测试）
+gradle assembleRelease      # 正式版通用 APK
+gradle bundleRelease        # Google Play 通用 AAB
+
+--------------------------------------------------------------------
+3. 为 Release APK 签名并安装到设备
+--------------------------------------------------------------------
+# 生成签名密钥（仅首次执行）。*.jks 只留在本机，不要提交到仓库。
+keytool -genkeypair -v -keystore olympium-release.jks -keyalg RSA -keysize 2048 \
+  -validity 10000 -alias olympium
+
+# 使用 apksigner 签名
+"$ANDROID_HOME/build-tools/34.0.0/apksigner" sign \
+  --ks olympium-release.jks \
+  --out dist/olympium-android-universal-signed.apk \
+  dist/app-release-unsigned.apk
+
+# 通过 ADB 安装到手机 / 平板 / 模拟器
+adb install -r dist/olympium-android-universal-signed.apk
