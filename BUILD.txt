@@ -26,10 +26,10 @@ export PATH="$ANDROID_HOME/platform-tools:$PATH"
 --------------------------------------------------------------------
 2. 打包全架构通用 APK 与 AAB
 --------------------------------------------------------------------
-# 在仓库根目录执行（源码已展开在根目录，无需再进入 android/）
+cd android
 chmod +x package-android.sh
 
-# 方式 A：使用打包脚本（同时生成通用 APK 与 AAB 到 dist/）
+# 方式 A：使用打包脚本（同时生成通用 APK 与 AAB 到 android/dist/）
 ./package-android.sh
 
 # 方式 B：直接使用 Gradle 命令
@@ -40,7 +40,7 @@ gradle bundleRelease        # Google Play 通用 AAB
 --------------------------------------------------------------------
 3. 为 Release APK 签名并安装到设备
 --------------------------------------------------------------------
-# 生成签名密钥（仅首次执行）。*.jks 只留在本机，不要提交到仓库。
+# 生成签名密钥（仅首次执行）
 keytool -genkeypair -v -keystore olympium-release.jks -keyalg RSA -keysize 2048 \
   -validity 10000 -alias olympium
 

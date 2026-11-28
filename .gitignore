@@ -1,18 +1,13 @@
-# Machine-local SDK path
-local.properties
-
-# Build outputs
-.gradle/
+# Build outputs — packaging instructions are in BUILD*.txt; do not commit packages
+bin/
+obj/
+out/
 build/
 dist/
-*.apk
-*.aab
-*.idsig
-
-# Signing material — never commit private keys
+*.user
+*.suo
 *.jks
 *.keystore
-*.pem
-*.p12
-*.key
-keystore.properties
+.vs/
+.idea/
+*.pdb

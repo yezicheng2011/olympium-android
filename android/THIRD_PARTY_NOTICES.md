@@ -1,7 +1,7 @@
 # Third-Party Notices — Olympium for Android
 
 ## First-Party Code
-All first-party Kotlin source code, manifests, and packaging scripts in this repository are licensed under **Apache License, Version 2.0** ([LICENSE](LICENSE), [NOTICE](NOTICE)).
+All first-party Kotlin source code, manifests, and packaging scripts in `android/` are licensed under **Apache License, Version 2.0** ([LICENSE](LICENSE), [NOTICE](NOTICE)).
 
 ## Third-Party Dependencies & Optional Container Runtimes
 
